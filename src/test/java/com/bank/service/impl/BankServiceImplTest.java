@@ -26,4 +26,19 @@ class BankServiceImplTest {
                 "Previous transaction should equal to (negative) withdraw amount");
     }
 
+    @Test
+    void declinedWithdrawShouldNotUpdateBankAccountBalance(){
+        BankServiceImpl bankServiceImpl = new BankServiceImpl();
+        BankAccount bankAccount = getBankAccount();
+
+        bankAccount.setBalance(750d);
+        double previousBalance = bankAccount.getBalance();
+
+        double withdrawAmount = 800d;
+        bankServiceImpl.withdraw(bankAccount, withdrawAmount);
+
+        assertEquals(bankAccount.getBalance(), previousBalance,
+                "Should not update bank account balance");
+    }
+
 }
