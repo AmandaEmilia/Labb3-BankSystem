@@ -29,4 +29,24 @@ class BankMenuTest {
                 .deposit(bankAccount, 100d);
     }
 
+    @Test
+    void shouldWithdraw(){
+        BankService bankServiceMock = Mockito.mock(BankService.class);
+        BankAccount bankAccount = getBankAccount();
+        Scanner scMock = Mockito.mock(Scanner.class);
+
+        BankMenu bankMenu = new BankMenu(bankServiceMock, bankAccount,scMock);
+
+        Mockito.when(scMock.next()).thenReturn("c", "e");
+
+        Mockito.when(scMock.nextDouble()).thenReturn(100d);
+
+        bankMenu.menu();
+
+        Mockito.verify(bankServiceMock, Mockito.times(1))
+                .withdraw(bankAccount, 100d);
+    }
+
+
+
 }
