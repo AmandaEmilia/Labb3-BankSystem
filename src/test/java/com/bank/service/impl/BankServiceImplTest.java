@@ -70,7 +70,23 @@ class BankServiceImplTest {
         double depositAmount = -500;
         bankServiceImpl.deposit(bankAccount, depositAmount);
 
-        assertEquals(bankAccount.getBalance(), previousBalance);
+        assertEquals(bankAccount.getBalance(), previousBalance,
+                "Should not update bank account balance");
+    }
+
+    @Test
+    void zeroDepositShouldNotUpdateBankAccountBalance(){
+        BankServiceImpl bankServiceImpl = new BankServiceImpl();
+        BankAccount bankAccount = getBankAccount();
+
+        bankAccount.setBalance(750);
+        double previousBalance = bankAccount.getBalance();
+
+        double depositWithZero = 0;
+        bankServiceImpl.deposit(bankAccount, depositWithZero);
+
+        assertEquals(bankAccount.getBalance(), previousBalance,
+                "Should not update bank account balance");
     }
 
 }
