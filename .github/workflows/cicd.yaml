@@ -1,0 +1,27 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout latest main
+      uses: actions/checkout@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+    - name: Run app
+      run: mvn clean install
+    - name: build and package
+      run: mvn package
+    - name: Upload jar file
+      uses: actions/upload-artifact@v3
+      with:
+        name: BankSystem.jar
+        path: target/bank-system-1.0.jar
