@@ -59,4 +59,18 @@ class BankServiceImplTest {
                 "Previous transaction should equal to deposit amount");
     }
 
+    @Test
+    void negativeDepositShouldNotUpdateBankAccountBalance(){
+        BankServiceImpl bankServiceImpl = new BankServiceImpl();
+        BankAccount bankAccount = getBankAccount();
+
+        bankAccount.setBalance(750);
+        double previousBalance = bankAccount.getBalance();
+
+        double depositAmount = -500;
+        bankServiceImpl.deposit(bankAccount, depositAmount);
+
+        assertEquals(bankAccount.getBalance(), previousBalance);
+    }
+
 }
