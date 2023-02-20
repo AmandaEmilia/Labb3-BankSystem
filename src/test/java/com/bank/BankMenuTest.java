@@ -47,6 +47,23 @@ class BankMenuTest {
                 .withdraw(bankAccount, 100d);
     }
 
+    @Test
+    void shouldThrowException() {
+        BankService bankServiceMock = Mockito.mock(BankService.class);
+        BankAccount bankAccount = getBankAccount();
+        Scanner scMock = Mockito.mock(Scanner.class);
 
+        BankMenu bankMenu = new BankMenu(bankServiceMock, bankAccount, scMock);
+
+        Mockito.when(scMock.next()).thenReturn("c", "e");
+
+        Mockito.when(scMock.nextDouble()).thenReturn(100d);
+
+        Mockito.doThrow(RuntimeException.class)
+                .when(bankServiceMock)
+                .withdraw(ArgumentMatchers.any(), ArgumentMatchers.anyDouble());
+
+        bankMenu.menu();
+    }
 
 }
