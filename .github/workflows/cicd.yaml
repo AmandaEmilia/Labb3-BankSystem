@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -20,6 +21,12 @@ jobs:
         cache: maven
     - name: Run app
       run: mvn clean install
+    - name: checkstyle
+      uses: dbelyaev/action-checkstyle@v0.5.1
+      with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
     - name: build and package
       run: mvn package
     - name: Upload jar file
