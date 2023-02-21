@@ -7,11 +7,7 @@ public class BankServiceImpl implements BankService {
     @Override
     public void withdraw(BankAccount bankAccount, double amount) {
         if (amount != 0 && bankAccount.getBalance() >= amount) {
-            final int n;
-            bankAccount.setBalance(
-                    bankAccount.getBalance()
-
-                                            - amount);
+            bankAccount.setBalance(bankAccount.getBalance() - amount);
             bankAccount.setPrevTrans(- amount);
         } else if (bankAccount.getBalance() < amount) {
             System.out.println("Bank balance insufficient");
